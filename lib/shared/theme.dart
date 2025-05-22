@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-Color primaryColor = const Color(0xff5C40CC);
+double defaultMargin = 24.0;
+double defaultRadius = 17.0;
+
+Color keyprimaryColor = const Color(0xff5C40CC);
 Color keyBlackColor = const Color(0xff1F1449);
 Color keyWhiteColor = const Color(0xffFFFFFF);
 Color keyGreyColor = const Color(0xff9698A9);
@@ -14,7 +17,7 @@ TextStyle whiteTextStyle = TextStyle(color: keyWhiteColor);
 TextStyle greyTextStyle = TextStyle(color: keyGreyColor);
 TextStyle greenTextStyle = TextStyle(color: keyGreenColor);
 TextStyle redTextStyle = TextStyle(color: keyRedColor);
-TextStyle purpleTextStyle = TextStyle(color: primaryColor);
+TextStyle purpleTextStyle = TextStyle(color: keyprimaryColor);
 
 FontWeight light = FontWeight.w300;
 FontWeight regular = FontWeight.w400;
