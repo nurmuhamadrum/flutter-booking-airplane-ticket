@@ -127,7 +127,9 @@ class SignUpPage extends StatelessWidget {
           width: double.infinity,
           height: 55,
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/bonus');
+            },
             style: TextButton.styleFrom(
               backgroundColor: keyPrimaryColor,
               shape: RoundedRectangleBorder(
