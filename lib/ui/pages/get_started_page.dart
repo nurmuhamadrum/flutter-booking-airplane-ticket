@@ -43,9 +43,11 @@ class GetStartedPage extends StatelessWidget {
                   height: 50,
                   margin: EdgeInsets.only(top: 50, bottom: 80),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/sign-up');
+                    },
                     style: TextButton.styleFrom(
-                      backgroundColor: keyprimaryColor,
+                      backgroundColor: keyPrimaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(defaultRadius),
                       ),
