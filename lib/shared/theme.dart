@@ -12,6 +12,8 @@ Color keyRedColor = const Color(0xffEB70A5);
 Color keyBackgroundColor = const Color(0xffFAFAFA);
 Color keyInActiveColor = const Color(0xffDBD7EC);
 Color keyTransparentColor = Colors.transparent;
+Color keyUnavailableColor = Color(0xffEBECF1);
+Color keyAvailableColor = Color(0xffE0D9FF);
 
 TextStyle blackTextStyle = TextStyle(color: keyBlackColor);
 TextStyle whiteTextStyle = TextStyle(color: keyWhiteColor);
