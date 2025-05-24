@@ -1,3 +1,4 @@
+import 'package:airplane/ui/pages/checkout_page.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
 import 'package:airplane/ui/widgets/seat_item.dart';
 import 'package:flutter/material.dart';
@@ -259,14 +260,17 @@ class ChooseSeatPage extends StatelessWidget {
                   ),
                   Text(
                     'A1, B3',
-                    style: blackTextStyle.copyWith(fontWeight: medium, fontSize: 16),
+                    style: blackTextStyle.copyWith(
+                      fontWeight: medium,
+                      fontSize: 16,
+                    ),
                   ),
                 ],
               ),
             ),
 
-             // NOTE: TOTAL
-             Container(
+            // NOTE: TOTAL
+            Container(
               margin: EdgeInsets.only(top: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -277,7 +281,10 @@ class ChooseSeatPage extends StatelessWidget {
                   ),
                   Text(
                     'Rp. 540.000',
-                    style: purpleTextStyle.copyWith(fontWeight: semiBold, fontSize: 16),
+                    style: purpleTextStyle.copyWith(
+                      fontWeight: semiBold,
+                      fontSize: 16,
+                    ),
                   ),
                 ],
               ),
@@ -288,7 +295,16 @@ class ChooseSeatPage extends StatelessWidget {
     }
 
     Widget checkoutButton() {
-      return CustomButton(margin: EdgeInsets.only(top: 30, bottom: 46), title: 'Continue to Checkout', onPressed: (){});
+      return CustomButton(
+        margin: EdgeInsets.only(top: 30, bottom: 46),
+        title: 'Continue to Checkout',
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CheckoutPage()),
+          );
+        },
+      );
     }
 
     return Scaffold(
