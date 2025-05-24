@@ -33,8 +33,8 @@ class DetailPage extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              keyWhiteColor.withOpacity(0),
-              Colors.black.withOpacity(0.95),
+              keyWhiteColor.withAlpha(0),
+              Colors.black.withAlpha((0.95 * 255).toInt()),
             ],
           ),
         ),
@@ -203,9 +203,18 @@ class DetailPage extends StatelessWidget {
                     ),
                   ),
                   // NOTE: BOOK BUTTON
-                  CustomButton(title: 'Book Now', onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseSeatPage()));
-                  }, width: 170),
+                  CustomButton(
+                    title: 'Book Now',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChooseSeatPage(),
+                        ),
+                      );
+                    },
+                    width: 170,
+                  ),
                 ],
               ),
             ),
