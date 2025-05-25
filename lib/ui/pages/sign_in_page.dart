@@ -5,15 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared/theme.dart';
 
-class SignUpPage extends StatelessWidget {
-  SignUpPage({super.key});
+class SignInPage extends StatelessWidget {
+  SignInPage({super.key});
 
-  final TextEditingController nameController = TextEditingController(text: '');
   final TextEditingController emailController = TextEditingController(text: '');
   final TextEditingController passwordController = TextEditingController(
     text: '',
   );
-  final TextEditingController hobyController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +19,13 @@ class SignUpPage extends StatelessWidget {
       return Container(
         margin: EdgeInsets.only(top: 30),
         child: Text(
-          'Join us and get \nyour next journey',
+          'Sign In with \nYour Account',
           style: blackTextStyle.copyWith(fontSize: 24, fontWeight: semiBold),
         ),
       );
     }
 
     Widget inputSection() {
-      Widget nameInput() {
-        return CustomFormField(
-          title: 'Full Name',
-          hint: 'Your Full Name',
-          controller: nameController,
-        );
-      }
-
       Widget emailAddressInput() {
         return CustomFormField(
           title: 'Email Address',
@@ -53,21 +43,13 @@ class SignUpPage extends StatelessWidget {
         );
       }
 
-      Widget hobyInput() {
-        return CustomFormField(
-          title: 'Hoby',
-          hint: 'Your Hobby',
-          controller: hobyController,
-        );
-      }
-
       Widget submitButton() {
         return BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthSuccess) {
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                '/bonus',
+                '/main',
                 (route) => false,
               );
             } else if (state is AuthFailed) {
@@ -85,18 +67,40 @@ class SignUpPage extends StatelessWidget {
             }
 
             return CustomButton(
-              title: 'Get Started',
+              title: 'Sign In',
               margin: EdgeInsets.only(top: 10),
               onPressed: () {
-                context.read<AuthCubit>().signUp(
+                context.read<AuthCubit>().signIn(
                   email: emailController.text,
                   password: passwordController.text,
-                  name: nameController.text,
-                  hoby: hobyController.text,
                 );
               },
             );
           },
+        );
+      }
+
+      Widget signUpButton() {
+        return GestureDetector(
+          onTap: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/sign-up',
+              (route) => false,
+            );
+          },
+          child: Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(top: 50, bottom: 73),
+            child: Text(
+              'Don\'t Have an Account? Sign Up',
+              style: greyTextStyle.copyWith(
+                fontSize: 16,
+                fontWeight: light,
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ),
         );
       }
 
@@ -109,32 +113,11 @@ class SignUpPage extends StatelessWidget {
         ),
         child: Column(
           children: [
-            nameInput(),
             emailAddressInput(),
             passwordInput(),
-            hobyInput(),
             submitButton(),
+            signUpButton(),
           ],
-        ),
-      );
-    }
-
-    Widget signInButton() {
-      return GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(context, '/sign-in');
-        },
-        child: Container(
-          alignment: Alignment.center,
-          margin: EdgeInsets.only(top: 50, bottom: 73),
-          child: Text(
-            'Have an Account? Sign In',
-            style: greyTextStyle.copyWith(
-              fontSize: 16,
-              fontWeight: light,
-              decoration: TextDecoration.underline,
-            ),
-          ),
         ),
       );
     }
@@ -144,7 +127,7 @@ class SignUpPage extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-          children: [title(), inputSection(), signInButton()],
+          children: [title(), inputSection()],
         ),
       ),
     );
