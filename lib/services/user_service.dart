@@ -18,4 +18,19 @@ class UserService {
       rethrow;
     }
   }
+
+  Future<UserModel> getUserById(String id) async {
+    try {
+      DocumentSnapshot snapshot = await _userReference.doc(id).get();
+      return UserModel(
+        id: id,
+        email: snapshot['email'],
+        name: snapshot['name'],
+        hoby: snapshot['hoby'],
+        balance: snapshot['balance'],
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
