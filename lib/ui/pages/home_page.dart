@@ -1,12 +1,25 @@
 import 'package:airplane/cubit/auth_cubit.dart';
+import 'package:airplane/cubit/destination_cubit.dart';
+import 'package:airplane/models/destination_model.dart';
 import 'package:airplane/ui/widgets/destination_card.dart';
 import 'package:airplane/ui/widgets/destination_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared/theme.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    context.read<DestinationCubit>().fetchDestionations();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,44 +78,15 @@ class HomePage extends StatelessWidget {
       );
     }
 
-    Widget popularDestination() {
+    Widget popularDestination(List<DestinationModel> destinations) {
       return Container(
         margin: EdgeInsets.only(top: 30),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: [
-              DestinationCard(
-                title: 'Lake Ciliwung',
-                city: 'Bekasi',
-                imageUrl: 'assets/image_destination_1.png',
-                rating: 4.5,
-              ),
-              DestinationCard(
-                title: 'Lake Cimahi',
-                city: 'Cimahi',
-                imageUrl: 'assets/image_destination_2.png',
-                rating: 4.8,
-              ),
-              DestinationCard(
-                title: 'Pantai Kejawanan',
-                city: 'Cirebon',
-                imageUrl: 'assets/image_destination_3.png',
-                rating: 4.2,
-              ),
-              DestinationCard(
-                title: 'Gereja Tua',
-                city: 'Bandung',
-                imageUrl: 'assets/image_destination_4.png',
-                rating: 4.6,
-              ),
-              DestinationCard(
-                title: 'Pohon Dewa',
-                city: 'Surabaya',
-                imageUrl: 'assets/image_destination_5.png',
-                rating: 3.1,
-              ),
-            ],
+            children: destinations.map((DestinationModel destination) {
+              return DestinationCard(destination);
+            }).toList(),
           ),
         ),
       );
@@ -155,8 +139,27 @@ class HomePage extends StatelessWidget {
       );
     }
 
-    return ListView(
-      children: [header(), popularDestination(), newDestination()],
+    return BlocConsumer<DestinationCubit, DestinationState>(
+      listener: (context, state) {
+        if (state is DestinationFailed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(backgroundColor: keyRedColor, content: Text(state.error)),
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is DestinationSuccess) {
+          return ListView(
+            children: [
+              header(),
+              popularDestination(state.destinations),
+              newDestination(),
+            ],
+          );
+        }
+
+        return Center(child: CircularProgressIndicator());
+      },
     );
   }
 }
