@@ -14,7 +14,7 @@ class DestinationCard extends StatelessWidget {
       onTap: () => {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => DetailPage()),
+          MaterialPageRoute(builder: (context) => DetailPage(destinations)),
         ),
       },
       child: Container(
@@ -36,7 +36,8 @@ class DestinationCard extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(18),
                 image: DecorationImage(
-                  image: AssetImage(destinations.imageUrl),
+                  image: NetworkImage(destinations.imageUrl),
+                  // image: AssetImage(destinations.imageUrl),
                 ),
               ),
               child: Align(

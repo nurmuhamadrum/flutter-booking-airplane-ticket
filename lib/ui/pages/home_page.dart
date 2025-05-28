@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    Widget newDestination() {
+    Widget newDestination(List<DestinationModel> destinations) {
       return Container(
         margin: EdgeInsets.only(
           top: 30,
@@ -110,29 +110,10 @@ class _HomePageState extends State<HomePage> {
                 fontWeight: semiBold,
               ),
             ),
-            DestinationTile(
-              title: 'Danau Beratan',
-              city: 'Singaraja',
-              imageUrl: 'assets/image_destination_6.png',
-              rating: 4.2,
-            ),
-            DestinationTile(
-              title: 'Sydney',
-              city: 'Australia',
-              imageUrl: 'assets/image_destination_7.png',
-              rating: 4.7,
-            ),
-            DestinationTile(
-              title: 'Roma',
-              city: 'Italia',
-              imageUrl: 'assets/image_destination_8.png',
-              rating: 4.3,
-            ),
-            DestinationTile(
-              title: 'Hill Hey',
-              city: 'Monaco',
-              imageUrl: 'assets/image_destination_9.png',
-              rating: 4.2,
+            Column(
+              children: destinations.map((DestinationModel destination) {
+                return DestinationTile(destination);
+              }).toList(),
             ),
           ],
         ),
@@ -153,7 +134,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               header(),
               popularDestination(state.destinations),
-              newDestination(),
+              newDestination(state.destinations),
             ],
           );
         }
